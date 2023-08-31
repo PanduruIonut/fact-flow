@@ -4,7 +4,7 @@ import { View, Button } from 'react-native';
 import CheckBox from '../components/checkbox';
 const categories = ['Sport', 'Art', 'Fashion', 'Technology'];
 
-const categoriesScreen = ({ navigation }) => {
+const CategoriesScreen = ({ navigation }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);
 
     const toggleCategory = (category) => {
@@ -30,4 +30,4 @@ const categoriesScreen = ({ navigation }) => {
 };
 
 
-export default categoriesScreen;
+export default CategoriesScreen;
