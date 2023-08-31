@@ -7,12 +7,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 
+const loadSelectedCategories = async () => {
+    try {
+        const storedCategories = await AsyncStorage.getItem('selectedCategories');
+        return storedCategories !== null ? JSON.parse(storedCategories) : null;
+    } catch (error) {
+        console.error('Error loading selected categories:', error);
+    }
+};
+
+
 const BottomTabNavigator = () => {
     return (
         <Tab.Navigator>
             <Tab.Screen
                 name="Home"
-                component={loadSelectedCategories() ?  FeedScreen : CategoriesScreen}
+                component={ loadSelectedCategories?  FeedScreen : CategoriesScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
@@ -28,15 +38,5 @@ const BottomTabNavigator = () => {
 };
 
 
-const loadSelectedCategories = async () => {
-    try {
-        const storedCategories = await AsyncStorage.getItem('selectedCategories');
-        if (storedCategories !== null) {
-            setSelectedCategories(JSON.parse(storedCategories));
-        }
-    } catch (error) {
-        console.error('Error loading selected categories:', error);
-    }
-};
 
 export default BottomTabNavigator;

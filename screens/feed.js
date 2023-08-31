@@ -1,12 +1,25 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { useState, useEffect } from 'react';
+import { getDailyFacts } from '../utils/api';
 
-const feed = () => {
+const FeedScreen = () => {
+    const [facts, setFacts] = useState(null);
+
+    useEffect(() => {
+        async function fetchFacts() {
+            const generatedFacts = await getDailyFacts();
+            setFacts(generatedFacts);
+        }
+        fetchFacts();
+    }, []);
+
+
     return (
         <View>
-            <Text>Feed</Text>
+            <Text>{facts ? facts : 'Loading...'}</Text>
         </View>
     );
-}
+};
 
-export default feed;
+export default FeedScreen;
