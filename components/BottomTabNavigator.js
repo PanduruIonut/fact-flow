@@ -2,8 +2,8 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import CategoriesScreen from '../screens/categories';
-import FeedScreen from '../screens/feed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FactScreen from '../screens/factScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ const BottomTabNavigator = () => {
         <Tab.Navigator>
             <Tab.Screen
                 name="Home"
-                component={ loadSelectedCategories?  FeedScreen : CategoriesScreen}
+                component={ loadSelectedCategories?  FactScreen : CategoriesScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
