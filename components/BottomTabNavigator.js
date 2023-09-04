@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import CategoriesScreen from '../screens/categories';
@@ -18,11 +18,25 @@ const loadSelectedCategories = async () => {
 
 
 const BottomTabNavigator = () => {
+    const [selectedCategories, setSelectedCategories] = useState();
+
+    useEffect(() => {
+        async function fetchCategories() {
+            try {
+                const storedCategories = await loadSelectedCategories();
+                setSelectedCategories(storedCategories);
+            } catch (error) {
+                console.error('Error loading selected categories:', error);
+            }
+        }
+        fetchCategories();  
+    }, []);
+
     return (
         <Tab.Navigator>
             <Tab.Screen
                 name="Home"
-                component={ loadSelectedCategories?  FactScreen : CategoriesScreen}
+                component={ selectedCategories ? FactScreen : CategoriesScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <Ionicons
